@@ -1,17 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDom from 'react-dom'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// const createApp = (props) => {
+//     return (
+//         // 在jsx语法中插入js的代码，要在花括号内
+//         <h1>hello {props.title}</h1>
+//     )
+// }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// const app = createApp({
+//     title: 'React 16.13'
+// })
+
+
+// 创建组件的第一种方式：使用箭头函数，但是函数名称首字母要大写
+const App = (props) => {
+    return (
+        <h1 title={props.title}>hello {props.title}</h1>
+    )
+}
+
+ReactDom.render(
+    <App title="react" />,
+    document.querySelector('#root')
+)
