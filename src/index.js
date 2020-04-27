@@ -1,26 +1,26 @@
-import React from 'react'
-import ReactDom from 'react-dom'
+import React, { Component } from 'react'
+import { render } from 'react-dom'
 
-// const createApp = (props) => {
-//     return (
-//         // 在jsx语法中插入js的代码，要在花括号内
-//         <h1>hello {props.title}</h1>
-//     )
-// }
-
-// const app = createApp({
-//     title: 'React 16.13'
-// })
-
-
-// 创建组件的第一种方式：使用箭头函数，但是函数名称首字母要大写
-const App = (props) => {
-    return (
-        <h1 title={props.title}>hello {props.title}</h1>
-    )
+// 定义组件的第二种方式，使用类继承 React.Component
+class App extends Component {
+    render() {
+        console.log(this.props)
+        return (
+            <div>
+                <h1>类组件</h1>
+                <p>{this.props.title}</p>
+            </div>
+        )
+    }
 }
 
-ReactDom.render(
-    <App title="react" />,
+// 类组件渲染的原理
+// const app = new App({
+//     title: '这是类组件'
+// }).render()
+
+// render 是 reactDom 提供的一个方法，这个方法通常只会调用一次
+render(
+    <App title='这是类组件' />,
     document.querySelector('#root')
 )
