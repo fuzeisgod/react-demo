@@ -33,6 +33,10 @@ export default class App extends Component {
         }
     }
 
+    addTodo = (todoTitle) => {
+        console.log(todoTitle)
+    }
+
     render() {
         return (
             // jsx 语法只能有一个根标签，react提供了一个Fragment标签表示空标签（需要先引入）
