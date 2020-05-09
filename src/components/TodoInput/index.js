@@ -28,8 +28,8 @@ export default class TodoInput extends Component {
 
     // 使用箭头函数保证函数内this指向组件，
     // 如不用箭头函数，则在调用函数时需通过.bind(this)来绑定this
-    handleAddClick = (id) => {
-        console.log(this.state, id)
+    handleAddClick = () => {
+        this.props.addTodo(this.state.inputValue)
     }
     // handleAddClick(id) {
     //     console.log(this.state, id)

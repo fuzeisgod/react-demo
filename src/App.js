@@ -34,7 +34,27 @@ export default class App extends Component {
     }
 
     addTodo = (todoTitle) => {
-        console.log(todoTitle)
+        // this.setState({
+        //     // 注意：这里不使用push因为push返回的是新数组的长度，而不是返回一个数组
+        //     todos: this.state.todos.concat({
+        //         id: Math.random(),
+        //         title: todoTitle,
+        //         isCompleted: false
+        //     })
+        // })
+
+        
+        // 也可以拷贝一个新数组，进行push修改
+        // const newTodos = this.state.todos.slice()
+        const newTodos = [...this.state.todos]
+        newTodos.push({
+            id: Math.random(),
+            title: todoTitle,
+            isCompleted: false
+        })
+        this.setState({
+            todos: newTodos
+        })
     }
 
     render() {
@@ -55,7 +75,7 @@ export default class App extends Component {
                 <TodoHeader desc={this.state.desc} x={1} y={2}>
                     <i>{this.state.title}</i>
                 </TodoHeader>
-                <TodoInput btnText="add" />
+                <TodoInput btnText="add" addTodo={this.addTodo} />
                 <TodoList todos={this.state.todos} />
                 <Like />
             </Fragment>
