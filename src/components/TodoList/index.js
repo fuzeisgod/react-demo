@@ -7,7 +7,6 @@ export default class TodoList extends Component {
             <div>
                 {
                     this.props.todos.map(todo => {
-                        console.log(todo)
                         return (
                             // <TodoItem key={todo.id}
                             //     id={todo.id}

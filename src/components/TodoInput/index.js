@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+// react 里面通过 ref 来获取组件或者 dom 元素，要使用 ref 之前必须调用 react.createRef 方法来创建一个 ref
+// react 引出的，大写的是类，小写的是方法
+import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 
 export default class TodoInput extends Component {
@@ -13,11 +15,10 @@ export default class TodoInput extends Component {
     constructor() {
         super()
         this.state = {
-            inputValue: 'xxx'
+            inputValue: ''
         }
-        // 当调用的函数为普通函数写法时，需要通过 bind 来绑定内部的 this，也可以通过bind可函数传递参数
-        // 因为每次重新渲染页面都会再执行一次render函数，而constructor只在组件创建时执行一次，在constructor中进行函数this绑定可以避免重复绑定
-        // this.handleAddClick = this.handleAddClick.bind(this, 124)
+        // 在 constructor 里面创建 ref
+        this.inputDom = createRef()
     }
 
     handleInputChange = (e) => {
@@ -26,22 +27,39 @@ export default class TodoInput extends Component {
         })
     }
 
-    // 使用箭头函数保证函数内this指向组件，
-    // 如不用箭头函数，则在调用函数时需通过.bind(this)来绑定this
-    handleAddClick = () => {
-        this.props.addTodo(this.state.inputValue)
+    handleKeyUp = (e) => {
+        if (this.state.inputValue === '') {
+            return
+        }
+        if (e.keyCode === 13) {
+            this.props.addTodo(this.state.inputValue)
+            this.setState({
+                inputValue: ''
+            })
+        }
     }
-    // handleAddClick(id) {
-    //     console.log(this.state, id)
-    // }
+
+    handleAddClick = () => {
+        if (this.state.inputValue === '') {
+            return
+        }
+        this.props.addTodo(this.state.inputValue)
+        this.setState({
+            inputValue: ''
+        }, () => {
+            this.inputDom.current.focus();
+        })
+    }
 
     render() {
         return (
             <div>
-                <input type="text" value={this.state.inputValue} onChange={this.handleInputChange} />
-
-                {/* 第一种传参的方式：在箭头函数内调用指定方法传参，因为若直接在 onClick={} 中传参，则在渲染时就已经执行了方法，而包裹在箭头函数内部的方法在点击时才执行 */}
-                {/* 第二种传参的方式: 通过.bind(this, arguments)的形式传递参数，此时方法声明可以不用箭头函数，也不需要在constructor中再次绑定this，缺点是每次重新渲染时都会再执行一次bind绑定 */}
+                <input type="text"
+                    value={this.state.inputValue}
+                    onChange={this.handleInputChange}
+                    onKeyUp={this.handleKeyUp}
+                    ref={this.inputDom}
+                />
                 <button onClick={this.handleAddClick}>{this.props.btnText}</button>
             </div>
         )
