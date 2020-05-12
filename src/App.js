@@ -39,7 +39,7 @@ export default class App extends Component {
     }
 
     onCompletedChange = (id) => {
-        console.log('onCompletedChange', id)
+        // console.log('onCompletedChange', id)
         this.setState((prevState) => {
             return {
                 todos: prevState.todos.map(todo => {

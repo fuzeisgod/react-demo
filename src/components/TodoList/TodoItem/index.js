@@ -13,8 +13,12 @@ export default class TodoItem extends Component {
         } = this.props
         onCompletedChange && onCompletedChange(id)
     }
-
+    // 
+    shouldComponentUpdate(){
+        return true
+    }
     render() {
+        console.log('TodoItem render')
         const {
             isCompleted,
             title
