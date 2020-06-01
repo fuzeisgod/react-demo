@@ -1,12 +1,9 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { CounterProvider } from './counterStore'
+import React from 'react'
+import { render } from 'react-dom'
+
 import App from './App'
 
 render(
-    <CounterProvider>
-        <App />
-    </CounterProvider>,
+    <App />,
     document.querySelector('#root')
-);
-
+)

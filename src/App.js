@@ -1,19 +1,16 @@
 import React, { Component } from 'react'
 
-import {
-    CountBtn,
-    Counter
-} from './components'
+import Another from './Another'
 
-
-export default class App extends Component {
+class App extends Component {
     render() {
         return (
-            <>
-                <CountBtn type="decrement">-</CountBtn>
-                <Counter />
-                <CountBtn type="increment">+</CountBtn>
-            </>
+            <div>
+                App
+                <Another name="组件"/>
+            </div>
         )
     }
 }
+
+export default App
