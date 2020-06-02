@@ -6,7 +6,7 @@ class Another extends Component {
     render() {
         return (
             <div>
-                Another { this.props.name }
+                Another { this.props.name}
             </div>
         )
     }
