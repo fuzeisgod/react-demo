@@ -8,22 +8,14 @@
 </head>
 
 <body>
+    <div id="test">test</div>
     <script>
-        const test = () => {
-            let a = 1;
-            const add = () => {
-                a += 1;
-                console.log(a)
-            }
-            return {
-                add
-            }
+        var test = document.querySelector('#test')
+        console.log('before click')
+        test.onclick = function(){
+            console.log('click')
         }
-
-        i = test()
-        i.add()
-        i.add()
-        i.add()
+        console.log('after click')
     </script>
 </body>
 
