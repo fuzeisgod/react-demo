@@ -19,6 +19,8 @@
             count: 5
         }
 
+        // 定义修改数据的方法，根据用户行为action的type来决定修改数据的方式，最后返回一个新的状态，最后将这个方法传入创建store的方法createStore
+        // changeState需要两个参数，上次修改后的数据状态和用户行为
         const changeState = (state, action) => {
             if (!state) {
                 return countState
