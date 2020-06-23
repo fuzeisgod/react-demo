@@ -1,6 +1,4 @@
-const initState = {
-    cart: []
-}
+const initState = []
 
 export default (state = initState, action) => {
     switch (action.type) {

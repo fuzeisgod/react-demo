@@ -3,7 +3,8 @@ import { render } from 'react-dom'
 
 import App from './App'
 import store from './store'
-console.log(store)
+
+window.store = store
 
 render(
     <App/>,
