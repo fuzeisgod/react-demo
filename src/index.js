@@ -7,6 +7,6 @@ import store from './store'
 window.store = store
 
 render(
-    <App/>,
+    <App store={ store }/>,
     document.querySelector('#root')
 )
