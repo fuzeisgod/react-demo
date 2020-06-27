@@ -3,25 +3,6 @@ import React, { Component } from 'react'
 import { increment, decrement } from '../../actions/cart'
 
 export default class CartList extends Component {
-    constructor() {
-        super()
-        this.state = {
-            cartList: []
-        }
-    }
-
-    getState = () => {
-        this.setState({
-            cartList: this.props.store.getState().cart
-        })
-    }
-
-    componentDidMount() {
-        this.getState()
-        // redux 订阅 state 发生改变时调用的重新渲染方法。
-        this.props.store.subscribe(this.getState)
-    }
-
     render() {
         return (
             <table>
@@ -36,29 +17,29 @@ export default class CartList extends Component {
                 </thead>
                 <tbody>
                     {
-                        this.state.cartList.map(item => {
-                            return (
-                                <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.title}</td>
-                                    <td>{item.price}</td>
-                                    <td>
-                                        <button onClick={
-                                            () => {
-                                                this.props.store.dispatch(decrement(item.id))
-                                            }
-                                        }>-</button>
-                                        <span>{item.amount}</span>
-                                        <button onClick={
-                                            () => {
-                                                this.props.store.dispatch(increment(item.id))
-                                            }
-                                        }>+</button>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            )
-                        })
+                        // this.state.cartList.map(item => {
+                        //     return (
+                        //         <tr key={item.id}>
+                        //             <td>{item.id}</td>
+                        //             <td>{item.title}</td>
+                        //             <td>{item.price}</td>
+                        //             <td>
+                        //                 <button onClick={
+                        //                     () => {
+                        //                         this.props.store.dispatch(decrement(item.id))
+                        //                     }
+                        //                 }>-</button>
+                        //                 <span>{item.amount}</span>
+                        //                 <button onClick={
+                        //                     () => {
+                        //                         this.props.store.dispatch(increment(item.id))
+                        //                     }
+                        //                 }>+</button>
+                        //             </td>
+                        //             <td></td>
+                        //         </tr>
+                        //     )
+                        // })
                     }
                 </tbody>
             </table>
