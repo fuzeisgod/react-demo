@@ -1,4 +1,4 @@
-// createStore 是 redux 提供的一个用于创建 store 的方法, 这个原理在分支 lesson-12 中.
+// createStore 是 redux 提供的一个用于创建 store 的方法, 这个原理在分支 lesson-11 中.
 import { createStore } from 'redux'
 
 // 引入合并后的 reducer

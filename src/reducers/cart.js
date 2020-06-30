@@ -1,5 +1,7 @@
+// 为了避免actionType重复,所以一般会把actionType放在一个文件里统一进行管理,也可以避免写错actionType
 import actionType from '../actions/actionType'
 
+// 对于这个购物车,这里有一个初始化的状态
 const initState = [{
     id: 1,
     title: 'Apple',
@@ -12,7 +14,9 @@ const initState = [{
     amount: 8
 }]
 
+// 创建购物车的 reducer,reducer的固定写法是两个参数,第一个就是state并有一个初始化,第二个是action
 export default (state = initState, action) => {
+    // 根据不同的action.type,做不同的处理,每次返回一个新的state,返回的类型要一样.
     switch (action.type) {
         case actionType.CART_AMOUNT_INCREMENT:
             // map 会生成一个新数组
@@ -30,6 +34,7 @@ export default (state = initState, action) => {
                 }
                 return item
             })
+        // 一定要有default, 当 actionType不对的时候,就不做任何处理,返回上一次的state
         default:
             return state
     }
