@@ -10,7 +10,7 @@ import actionType from './actionType'
 //     }
 // }
 
-// 在工作中,
+// 在工作中,常用的一种方式是使用 actionCreator，它是一个方法，返回一个对象，这个对象才是真正的action
 export const increment = (id) => {
     return {
         type: actionType.CART_AMOUNT_INCREMENT,
