@@ -10,7 +10,7 @@ import actionType from './actionType'
 //     }
 // }
 
-// 在工作中,常用的一种方式是使用 actionCreator，它是一个方法，返回一个对象，这个对象才是真正的action
+// 在工作中,常用的一种方式是使用 actionCreator，它是一个方法，返回一个对象，这个对象才是真正的
 export const increment = (id) => {
     return {
         type: actionType.CART_AMOUNT_INCREMENT,
@@ -28,3 +28,20 @@ export const decrement = (id) => {
         }
     }
 }
+
+// 异步 action，使用 redux-thunk 之后，就可以在 actionCreator 里 return 一个方法，这个方法的参数是 disptch
+// export const decrementAsync = (id) => {
+//     return (dispatch) => {
+//         setTimeout((id) => {
+//             dispatch(decrement(id))
+//         }, 2000)
+//     }
+// }
+
+export const decrementAsync = id => dispatch => {
+    setTimeout(() => {
+        dispatch(decrement(id))
+    }, 2000)
+}
+
+
