@@ -2,17 +2,20 @@
 import actionType from '../actions/actionType'
 
 // 对于这个购物车,这里有一个初始化的状态
-const initState = [{
-    id: 1,
-    title: 'Apple',
-    price: 8888,
-    amount: 10
-}, {
-    id: 2,
-    title: 'Orange',
-    price: 5555,
-    amount: 8
-}]
+const initState = {
+    list: [{
+        id: 1,
+        title: 'Apple',
+        price: 8888,
+        amount: 10
+    }, {
+        id: 2,
+        title: 'Orange',
+        price: 5555,
+        amount: 8
+    }],
+    isLoading: false
+}
 
 // 创建购物车的 reducer,reducer的固定写法是两个参数,第一个就是state并有一个初始化,第二个是action
 export default (state = initState, action) => {
@@ -34,6 +37,22 @@ export default (state = initState, action) => {
                 }
                 return item
             })
+        case actionType.START_FETCH_DATA:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case actionType.FETCH_DATA_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                list: action.payload.list
+            }
+        case actionType.FETCH_DATA_FAIL:
+            return {
+                ...state,
+                isLoading: false
+            }
         // 一定要有default, 当 actionType不对的时候,就不做任何处理,返回上一次的state
         default:
             return state

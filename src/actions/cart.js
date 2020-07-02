@@ -1,4 +1,5 @@
 import actionType from './actionType'
+import { getPost } from '../services'
 
 // action有两种写法
 
@@ -10,7 +11,7 @@ import actionType from './actionType'
 //     }
 // }
 
-// 在工作中,常用的一种方式是使用 actionCreator，它是一个方法，返回一个对象，这个对象才是真正的
+// 在工作中,常用的一种方式是使用 actionCreator，它是一个方法，返回一个对象，这个对象才是真正的 action
 export const increment = (id) => {
     return {
         type: actionType.CART_AMOUNT_INCREMENT,
@@ -42,6 +43,57 @@ export const decrementAsync = id => dispatch => {
     setTimeout(() => {
         dispatch(decrement(id))
     }, 2000)
+}
+
+const startFetchData = () => {
+    return {
+        type: actionType.START_FETCH_DATA
+    }
+}
+
+const fetchDataSuccess = (payload) => {
+    return {
+        type: actionType.FETCH_DATA_SUCCESS,
+        payload
+    }
+}
+
+const fetchDataFail = () => {
+    return {
+        type: actionType.FETCH_DATA_FAIL
+    }
+}
+
+
+export const fetchData = () => dispatch => {
+    dispatch(startFetchData())
+    getPost().then(res => {
+        console.log(res)
+        res = {
+            status: 200,
+            data: [{
+                id: 1,
+                title: 'test_Apple',
+                price: 8888,
+                amount: 10
+            }, {
+                id: 2,
+                title: 'test_Orange',
+                price: 5555,
+                amount: 8
+            }]
+        }
+        if (res.status === 200) {
+            dispatch(fetchDataSuccess({
+                list: res.data
+            }))
+        } else {
+            dispatch(fetchDataFail())
+        }
+    }).catch(err => {
+        console.log(err)
+        dispatch(fetchDataFail())
+    })
 }
 
 
