@@ -14,6 +14,7 @@ const initState = {
         price: 5555,
         amount: 8
     }],
+    errMsg: '',
     isLoading: false
 }
 
@@ -51,7 +52,8 @@ export default (state = initState, action) => {
         case actionType.FETCH_DATA_FAIL:
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
+                errMsg: '有些不正常...'
             }
         // 一定要有default, 当 actionType不对的时候,就不做任何处理,返回上一次的state
         default:
