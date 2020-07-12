@@ -8,6 +8,9 @@ import {
     NotFound
 } from './views'
 export default class App extends Component {
+    state = {
+        isLogin: false
+    }
     render() {
         return (
             <div>
@@ -17,13 +20,17 @@ export default class App extends Component {
                     <li><Link to="/users">用户</Link></li>
                 </ul>
                 <Switch>
-                    <Route component={Home} path="/home" />
+                    <Route path="/home" render={(routeProps) => { return <Home {...routeProps} /> }} />
                     <Route component={Article} path="/article" exact />
                     <Route component={ArticleDetail} path="/article/:id" />
-                    <Route component={Users} path="/users" />
+                    <Route path="/users" render={
+                        (routeProps) => {
+                            return this.state.isLogin ? <Users {...routeProps} /> : <div>请登录</div>
+                        }
+                    } />
                     <Route component={NotFound} path="/404" />
-                    <Redirect to="/home" from="/" exact/>
-                    <Redirect to="/404"/>
+                    <Redirect to="/home" from="/" exact />
+                    <Redirect to="/404" />
                 </Switch>
             </div>
         )
