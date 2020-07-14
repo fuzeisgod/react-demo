@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 
-const testHOC = (Com) => {
-    return class HOCComponent extends Component {
-        render() {
-            return <><Com /><div>这是高阶组件里的信息</div></>
-        }
-    }
-}
+import { Route, Switch } from 'react-router-dom'
+import { adminRouter } from './routes'
 
-export default @testHOC class App extends Component {
+export default class App extends Component {
     render() {
         return (
             <div>
-                App
+                <div>这里是公共的部分</div>
+                <Switch>
+                    {
+                        adminRouter.map(route => {
+                            return <Route path={route.pathName} component={route.component} key={route.pathName} exact={route.exact}/>
+                        })
+                    }
+                </Switch>
             </div>
         )
     }
