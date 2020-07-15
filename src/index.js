@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 import { mainRouter } from './routes'
 
