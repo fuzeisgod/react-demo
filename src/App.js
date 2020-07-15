@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { adminRouter } from './routes'
 
 export default class App extends Component {
@@ -11,9 +11,20 @@ export default class App extends Component {
                 <Switch>
                     {
                         adminRouter.map(route => {
-                            return <Route path={route.pathName} component={route.component} key={route.pathName} exact={route.exact}/>
+                            return (
+                                <Route
+                                    path={route.pathName}
+                                    key={route.pathName}
+                                    exact={route.exact}
+                                    render={(routerProps) => {
+                                        return <route.component {...routerProps} />
+                                    }}
+                                />
+                            )
                         })
                     }
+                    <Redirect to={adminRouter[0].pathName} from="/admin" exact />
+                    <Redirect to="/404" />
                 </Switch>
             </div>
         )
