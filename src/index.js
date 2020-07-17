@@ -8,24 +8,29 @@ import { mainRoutes } from './routes'
 import App from './App'
 import './index.less'
 
+import zhCN from 'antd/es/locale/zh_CN'
+import { ConfigProvider } from 'antd'
+
 render(
-    <Router>
-        <Switch>
-            <Route path="/admin" render={
-                (routerProps) => {
-                    // TODO:权限，需要登录才能访问 /admin
-                    return <App {...routerProps} />
+    <ConfigProvider locale={zhCN}>
+        <Router>
+            <Switch>
+                <Route path="/admin" render={
+                    (routerProps) => {
+                        // TODO:权限，需要登录才能访问 /admin
+                        return <App {...routerProps} />
+                    }
+                } />
+                {
+                    mainRoutes.map(route => {
+                        return <Route key={route.pathName} path={route.pathName} component={route.component} />
+                    })
                 }
-            } />
-            {
-                mainRoutes.map(route => {
-                    return <Route key={route.pathName} path={route.pathName} component={route.component} />
-                })
-            }
-            {/* 添加了 exact 属性，只有完全匹配路由 '/' 时，才会跳转至路由 '/admin' */}
-            <Redirect to="/admin" exact from="/" />
-            <Redirect to="/404" />
-        </Switch>
-    </Router>,
+                {/* 添加了 exact 属性，只有完全匹配路由 '/' 时，才会跳转至路由 '/admin' */}
+                <Redirect to="/admin" exact from="/" />
+                <Redirect to="/404" />
+            </Switch>
+        </Router>
+    </ConfigProvider>,
     document.querySelector('#root')
 )
