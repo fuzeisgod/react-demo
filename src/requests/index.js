@@ -18,7 +18,7 @@ service.interceptors.request.use((config) => {
 
 service.interceptors.response.use((res) => {
     if (res.data.code === 200) {
-        return res.data
+        return res.data.data
     } else {
         // 全局处理错误
         message.error(res.data.errMsg);
