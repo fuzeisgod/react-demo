@@ -11,7 +11,7 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
     config.data = Object.assign({}, config.data, {
         // autoToken: window.localStorage.getItem('authToken'),
-        autoToken: 'fuzzy'
+        authToken: 'fuzzy'
     })
     return config
 })
@@ -25,9 +25,15 @@ service.interceptors.response.use((res) => {
     }
 })
 
+// 获取文章列表
 export const getArticles = (offset = 0, limited = 10) => {
     return service.post('/api/v1/articleList', {
         offset,
         limited
     })
+}
+
+// 通过 id 删除文章
+export const deleteArticle = (id) => {
+    return service.post(`/api/v1/articleDelete/${id}`)
 }
