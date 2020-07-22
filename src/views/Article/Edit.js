@@ -1,14 +1,23 @@
 import React, { Component } from 'react'
 
-import { Card, Button, Form, Input } from 'antd'
+import { Card, Button, Form, Input, DatePicker } from 'antd'
 
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const layout = {
-    // offset 左侧间隔数 	span 栅格占位格数
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
-};
+const formItemLayout = {
+    labelCol: {
+        span: 4
+    },
+    wrapperCol: {
+        span: 16
+    }
+}
+
+const formButtonLayout = {
+    wrapperCol: {
+        offset: 4
+    }
+}
 
 export default class Edit extends Component {
     onFinish = values => {
@@ -19,6 +28,15 @@ export default class Edit extends Component {
         console.log('Failed:', errorInfo);
     };
 
+    onChange = (value, dateString) => {
+        console.log('Selected Time: ', value);
+        console.log('Formatted Selected Time: ', dateString);
+    }
+
+    onOk = (value) => {
+        console.log('onOk: ', value);
+    }
+
     render() {
         return (
             <Card
@@ -27,35 +45,72 @@ export default class Edit extends Component {
                 extra={<Button>取消</Button>}
             >
                 <Form
-                    {...layout}
                     name="basic"
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                 >
                     <Form.Item
-                        name="username"
+                        {...formItemLayout}
+                        label="标题"
+                        name="title"
                         rules={
                             [
-                                { required: true, message: '请填写用户名!' },
-                                { type: 'string', min: 2, message: '名字过短！' },
-                                { type: 'string', max: 8, message: '名字过长！' },
-                                {
-                                    // 接收 promise 作为返回值, Promise.reject / Promise.resolve
-                                    validator: (_, value) => {
-                                        console.log(value, typeof (value))
-                                        if (value === '233') {
-                                            return Promise.reject('The two passwords that you entered do not match!');
-                                        }
-                                        return Promise.resolve()
-                                    }
-                                }
+                                { required: true, message: '标题是必须的!' }
                             ]
                         }
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        <Input placeholder="标题" />
                     </Form.Item>
-
-                    <Form.Item>
+                    <Form.Item
+                        {...formItemLayout}
+                        label="作者"
+                        name="author"
+                        rules={
+                            [
+                                { required: true, message: '作者是必须的!' }
+                            ]
+                        }
+                    >
+                        <Input placeholder="作者" />
+                    </Form.Item>
+                    <Form.Item
+                        {...formItemLayout}
+                        label="阅读量"
+                        name="amount"
+                        rules={
+                            [
+                                { required: true, message: '阅读量是必须的!' }
+                            ]
+                        }
+                    >
+                        <Input placeholder="0" />
+                    </Form.Item>
+                    <Form.Item
+                        {...formItemLayout}
+                        label="创建时间"
+                        name="createTime"
+                        rules={
+                            [
+                                { required: true, message: '时间是必须的!' }
+                            ]
+                        }
+                    >
+                        <DatePicker showTime onChange={this.onChange} onOk={this.onOk} placeholder="选择时间" />
+                    </Form.Item>
+                    <Form.Item
+                        {...formItemLayout}
+                        label="内容"
+                        name="content"
+                        rules={
+                            [
+                                { required: true, message: '内容是必须的!' }
+                            ]
+                        }
+                    >
+                        <div>这里是内容</div>
+                    </Form.Item>
+                    <Form.Item
+                        {...formButtonLayout}>
                         <Button type="primary" htmlType="submit">
                             Submit
                         </Button>
