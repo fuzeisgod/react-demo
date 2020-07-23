@@ -1,8 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, createRef } from 'react'
 
 import { Card, Button, Form, Input, DatePicker } from 'antd'
 
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
+import E from 'wangeditor'
+console.log(E)
 
 const formItemLayout = {
     labelCol: {
@@ -20,6 +23,20 @@ const formButtonLayout = {
 }
 
 export default class Edit extends Component {
+    constructor() {
+        super()
+        this.editorRef = createRef()
+    }
+
+    componentDidMount() {
+        this.initEditor()
+    }
+
+    initEditor = () => {
+        this.editor = new E(this.editorRef.current)
+        this.editor.create()
+    }
+
     onFinish = values => {
         console.log('Success:', values);
     };
@@ -48,6 +65,9 @@ export default class Edit extends Component {
                     name="basic"
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
+                    initialValues={{
+                        title: 'test'
+                    }}
                 >
                     <Form.Item
                         {...formItemLayout}
@@ -107,7 +127,7 @@ export default class Edit extends Component {
                             ]
                         }
                     >
-                        <div>这里是内容</div>
+                        <div ref={this.editorRef} />
                     </Form.Item>
                     <Form.Item
                         {...formButtonLayout}>
