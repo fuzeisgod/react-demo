@@ -4,8 +4,9 @@ import { Card, Button, Form, Input, DatePicker } from 'antd'
 
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
+import './edit.less'
+
 import E from 'wangeditor'
-console.log(E)
 
 const formItemLayout = {
     labelCol: {
@@ -127,7 +128,7 @@ export default class Edit extends Component {
                             ]
                         }
                     >
-                        <div ref={this.editorRef} />
+                        <div className="qf-editor" ref={this.editorRef} />
                     </Form.Item>
                     <Form.Item
                         {...formButtonLayout}>
