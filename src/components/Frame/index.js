@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, Dropdown, Avatar, Badge } from 'antd'
+
+import { DownOutlined } from '@ant-design/icons';
 
 import { withRouter } from 'react-router-dom'
 
@@ -15,6 +17,36 @@ class Frame extends Component {
     onMenuClick = ({ key }) => {
         this.props.history.push(key)
     }
+
+    onDropDownMenuClick = ({ item, key, keyPath, domEvent }) => {
+        this.props.history.push(key)
+    }
+
+    // 在 this 中定义的 jsx 代码段中的方法要在代码段 之前 先声明。
+    menu = (
+        <Menu onClick={this.onDropDownMenuClick}>
+            <Menu.Item
+                key="/admin/notifications"
+            >
+                <Badge count={10} offset={[20, 7]}>
+                    通知中心
+                </Badge>
+            </Menu.Item>
+            <Menu.Item
+                key="/admin/setting"
+            >
+                个人设置
+            </Menu.Item>
+            <Menu.Item
+                key="/login"
+            >
+                退出登录
+            </Menu.Item>
+        </Menu>
+    );
+
+
+
     render() {
         const selectedKeyArr = this.props.location.pathname.split('/')
         selectedKeyArr.length = 3
@@ -23,6 +55,17 @@ class Frame extends Component {
                 <Header className="header zx-header">
                     <div className="zx-logo">
                         <img src={logo} alt="fuzzy" />
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                        <Badge dot={true}>
+                            <Dropdown overlay={this.menu}>
+                                <div>
+                                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                    <span>欢迎您，Fuzzy</span>
+                                    <DownOutlined />
+                                </div>
+                            </Dropdown>
+                        </Badge>
                     </div>
                 </Header>
                 <Layout>

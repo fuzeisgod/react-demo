@@ -47,3 +47,8 @@ export const getArticleById = (id) => {
 export const saveArticle = (id, data) => {
     return service.post(`/api/v1/articleEdit/${id}`, data)
 }
+
+// 通过文章阅读量
+export const getArticleAmount = () => {
+    return service.post(`/api/v1/articleAmount`)
+}

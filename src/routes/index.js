@@ -4,7 +4,8 @@ import {
     NotFound,
     Setting,
     ArticleList,
-    ArticleEdit
+    ArticleEdit,
+    Notifications
 } from '../views'
 
 // nav 图标
@@ -41,4 +42,7 @@ export const adminRoutes = [{
     title: '设置',
     isNav: true,
     icon: SettingOutlined
+}, {
+    pathName: '/admin/notifications',
+    component: Notifications
 }]

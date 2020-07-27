@@ -76,7 +76,7 @@ export default class Article extends Component {
     }
     deleteArticle = (record) => {
         Modal.confirm({
-            title: <div>确定要删除<a style={{ color: 'red', padding: '0 3px' }}>{record.title}</a>吗？</div>,
+            title: (<div>确定要删除<span style={{ color: 'red', padding: '0 3px' }}>{record.title}</span>吗？</div>),
             content: `此操作不可逆，请谨慎！`,
             okText: '确认删除！',
             cancelText: '我点错了！',
