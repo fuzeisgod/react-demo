@@ -8,7 +8,16 @@ import {
     Badge
 } from 'antd'
 
-export default class Notifications extends Component {
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state) => {
+    return {
+        list: state.notification
+    }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+class Notifications extends Component {
     data = [
         {
             title: 'Ant Design Title 1',
@@ -24,6 +33,7 @@ export default class Notifications extends Component {
         },
     ]
     render() {
+        console.log(this.props)
         return (
             <>
                 <Card title="通知中心" bordered={false} extra={<Button>全部标记为已读</Button>}>
@@ -36,7 +46,7 @@ export default class Notifications extends Component {
                             >
                                 <List.Item.Meta
                                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                    title={<Badge dot offset={[8,0]}>{item.title}</Badge>}
+                                    title={<Badge dot offset={[8, 0]}>{item.title}</Badge>}
                                     description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                                 />
                             </List.Item>
@@ -47,3 +57,5 @@ export default class Notifications extends Component {
         )
     }
 }
+
+export default Notifications
