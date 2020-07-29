@@ -4,55 +4,55 @@ import {
     Card,
     Button,
     List,
-    Avatar,
-    Badge
+    Badge,
+    Spin
 } from 'antd'
 
 import { connect } from 'react-redux'
 
+import { markNotificationsAsReadById, markAllNotificationsAsRead } from '../../actions/notification'
+
 const mapStateToProps = (state) => {
+    const {
+        list,
+        isLoading
+    } = state.notification
     return {
-        list: state.notification
+        list,
+        isLoading
     }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, { markNotificationsAsReadById, markAllNotificationsAsRead })
 class Notifications extends Component {
-    data = [
-        {
-            title: 'Ant Design Title 1',
-        },
-        {
-            title: 'Ant Design Title 2',
-        },
-        {
-            title: 'Ant Design Title 3',
-        },
-        {
-            title: 'Ant Design Title 4',
-        },
-    ]
     render() {
         console.log(this.props)
         return (
             <>
-                <Card title="通知中心" bordered={false} extra={<Button>全部标记为已读</Button>}>
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={this.data}
-                        renderItem={item => (
-                            <List.Item
-                                actions={[<Button>标记为已读</Button>]}
-                            >
-                                <List.Item.Meta
-                                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                    title={<Badge dot offset={[8, 0]}>{item.title}</Badge>}
-                                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                />
-                            </List.Item>
-                        )}
-                    />
-                </Card>
+                <Spin spinning={this.props.isLoading}>
+                    <Card title="通知中心" bordered={false} extra={<Button disabled={this.props.list.every(item => item.hasRead === true)} onClick={this.props.markAllNotificationsAsRead}>全部标记为已读</Button>}>
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={this.props.list}
+                            renderItem={item => (
+                                // react 中表示无元素可以用 null 表示
+                                <List.Item
+                                    actions={[
+                                        item.hasRead ?
+                                            null
+                                            :
+                                            <Button onClick={this.props.markNotificationsAsReadById.bind(this, item.id)}>标记为已读</Button>
+                                    ]}
+                                >
+                                    <List.Item.Meta
+                                        title={<Badge dot={item.hasRead ? false : true} offset={[8, 0]}>{item.title}</Badge>}
+                                        description={item.desc}
+                                    />
+                                </List.Item>
+                            )}
+                        />
+                    </Card>
+                </Spin>
             </>
         )
     }
