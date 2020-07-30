@@ -11,17 +11,21 @@ import { connect } from 'react-redux'
 import logo from './logo.png'
 import './frame.less'
 
+import { logout } from '../../actions/login'
+
 const { Header, Content, Sider } = Layout
 
 const mapStateToProps = state => {
     return {
-        notificationCount: state.notification.list.filter(item => item.hasRead === false).length
+        notificationCount: state.notification.list.filter(item => item.hasRead === false).length,
+        avatar: state.login.avatar,
+        displayName: state.login.displayName
     }
 }
 
 
 // 把不是通过路由切换过来的组件中，将react-router 的 history、location、match 三个对象传入props对象上
-@connect(mapStateToProps)
+@connect(mapStateToProps, { logout })
 @withRouter
 class Frame extends Component {
     onMenuClick = ({ key }) => {
@@ -29,7 +33,11 @@ class Frame extends Component {
     }
 
     onDropDownMenuClick = ({ item, key, keyPath, domEvent }) => {
-        this.props.history.push(key)
+        if (key === '/logout') {
+            this.props.logout()
+        } else {
+            this.props.history.push(key)
+        }
     }
 
     render() {
@@ -49,7 +57,7 @@ class Frame extends Component {
                     个人设置
             </Menu.Item>
                 <Menu.Item
-                    key="/login"
+                    key="/logout"
                 >
                     退出登录
             </Menu.Item>
@@ -58,7 +66,7 @@ class Frame extends Component {
 
         const selectedKeyArr = this.props.location.pathname.split('/')
         selectedKeyArr.length = 3
-        
+
         return (
             <Layout style={{ minHeight: '100%' }}>
                 <Header className="header zx-header">
@@ -69,8 +77,8 @@ class Frame extends Component {
                         <Badge dot={Boolean(this.props.notificationCount)}>
                             <Dropdown overlay={menu}>
                                 <div>
-                                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                    <span>欢迎您，Fuzzy</span>
+                                    <Avatar src={this.props.avatar} />
+                                    <span>欢迎您，{this.props.displayName}</span>
                                     <DownOutlined />
                                 </div>
                             </Dropdown>
