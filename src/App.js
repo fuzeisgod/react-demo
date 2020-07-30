@@ -5,13 +5,24 @@ import { adminRoutes } from './routes'
 
 import { Frame } from './components'
 
+import { connect } from 'react-redux'
+
 const menus = adminRoutes.filter(route => {
     return route.isNav === true
 })
 
-export default class App extends Component {
+const mapStateToProps = (state) => {
+    return {
+        isLogin: state.login.isLogin
+    }
+}
+
+@connect(mapStateToProps)
+class App extends Component {
     render() {
         return (
+            this.props.isLogin
+            ?
             <Frame menus={menus}>
                 <Switch>
                     {
@@ -32,7 +43,10 @@ export default class App extends Component {
                     <Redirect to="/404" />
                 </Switch>
             </Frame>
+            :
+            <Redirect to="/login"/>
         )
     }
 }
 
+export default App
