@@ -32,7 +32,8 @@ export default (state = initState, action) => {
                 displayName: '',
                 avatar: '',
                 isLogin: '',
-                isLoading: ''
+                isLoading: '',
+                role: ''
             }
         default:
             return state
